@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { 
-  View, 
-  Text, 
+import {
+  View,
+  Text,
   FlatList,
   TouchableOpacity,
-  ActivityIndicator 
+  ActivityIndicator
 } from 'react-native';
 
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
@@ -85,11 +85,11 @@ const App = () => {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <View style={styles.container}>
-          {statusMessage != "" &&
+          {statusMessage != "" && (
             <View style={styles.padding20}>
               <Text style={styles.statusMessage}>{statusMessage}</Text>
             </View>
-          }
+          )}
 
           <View style={styles.rowAction}>
             <TouchableOpacity
@@ -107,7 +107,7 @@ const App = () => {
           <FlatList
             data={peripherals}
             extraData={peripherals.length}
-            keyExtractor={item => item.identifier}
+            keyExtractor={(item) => item.identifier}
             renderItem={renderItem}
             contentContainerStyle={styles.grow1}
             ListEmptyComponent={renderEmptyList()}
