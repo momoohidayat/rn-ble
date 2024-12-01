@@ -20,4 +20,5 @@ build the `.xcworkspace` file usng xcode to your device
 ## Note
 
 - You may need to setup your code signings in the xcode to build into your device
-- doesn't work on simulator since iOS simulator don't have bluetooth capability
+- Doesn't work on simulator since iOS simulator don't have bluetooth capability
+- To integrate with another app, it's better to publish the library to npm first
