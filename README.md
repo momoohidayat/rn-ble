@@ -6,9 +6,9 @@ Searching for Bluetooth Low Energy (BLE) peripherals **(only for iOS for now)**
 
 go to example folder using `cd example`
 
-run `npm install ../` to install the library into example project
-
 run `yarn install` to install all of example project dependency
+
+run `npm install ../` to install the library into example project
 
 go to ios folder using `cd ios` and run `pod install`
 
