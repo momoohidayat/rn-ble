@@ -4,10 +4,12 @@ import {
   View, 
   Text, 
   FlatList,
-  SafeAreaView, 
   TouchableOpacity,
   ActivityIndicator 
 } from 'react-native';
+
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+
 import RnBle from 'rn-ble';
 import styles from './styles';
 
@@ -25,6 +27,7 @@ const App = () => {
     // Listen for scan start/stop events
     RnBle.onScanStart(() => {
       setIsScanning(true);
+      setPeripherals([]); // reset value for each scan
       setStatusMessage('Start Scanning');
     });
 
@@ -79,35 +82,39 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.statusMessage}>{statusMessage}</Text>
-        </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
+          {statusMessage != "" &&
+            <View style={styles.padding20}>
+              <Text style={styles.statusMessage}>{statusMessage}</Text>
+            </View>
+          }
 
-        <View style={styles.rowAction}>
-          <TouchableOpacity
-            style={[
-              styles.button,
-              isScanning ? styles.stopButton : styles.scanButton,
-            ]}
-            onPress={isScanning ? handleStopScan : handleStartScan}>
-            <Text style={styles.buttonText}>
-              {isScanning ? 'Stop Scan' : 'Start Scan'}
-            </Text>
-          </TouchableOpacity>
-          {isScanning && <ActivityIndicator size="large" />}
+          <View style={styles.rowAction}>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                isScanning ? styles.stopButton : styles.scanButton,
+              ]}
+              onPress={isScanning ? handleStopScan : handleStartScan}>
+              <Text style={styles.buttonText}>
+                {isScanning ? 'Stop Scan' : 'Start Scan'}
+              </Text>
+            </TouchableOpacity>
+            {isScanning && <ActivityIndicator size="large" />}
+          </View>
+          <FlatList
+            data={peripherals}
+            extraData={peripherals.length}
+            keyExtractor={item => item.identifier}
+            renderItem={renderItem}
+            contentContainerStyle={styles.grow1}
+            ListEmptyComponent={renderEmptyList()}
+          />
         </View>
-        <FlatList
-          data={peripherals}
-          extraData={peripherals.length}
-          keyExtractor={item => item.identifier}
-          renderItem={renderItem}
-          contentContainerStyle={styles.grow1}
-          ListEmptyComponent={renderEmptyList()}
-        />
-      </View>
-    </SafeAreaView>
+        </SafeAreaView>
+      </SafeAreaProvider>
   );
 };
 

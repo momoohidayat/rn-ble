@@ -7,6 +7,7 @@ class RnBle: RCTEventEmitter, CBCentralManagerDelegate {
     
     private var centralManager: CBCentralManager!
     private var peripheralDiscoveredCallback: RCTResponseSenderBlock?
+    private var peripherals: [String:Any] = [:]
     
     override init() {
         super.init()
@@ -15,6 +16,7 @@ class RnBle: RCTEventEmitter, CBCentralManagerDelegate {
     
     // Start scanning for peripherals
     @objc func startScan() {
+        peripherals = [:]
         if centralManager.state == .poweredOn {
             centralManager.scanForPeripherals(withServices: nil, options: nil)
             sendEvent(withName: "ScanStarted", body: nil)
@@ -32,7 +34,6 @@ class RnBle: RCTEventEmitter, CBCentralManagerDelegate {
     }
     
     // CBCentralManagerDelegate Methods
-    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
             // BLE is ready for scanning
@@ -43,13 +44,20 @@ class RnBle: RCTEventEmitter, CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi: NSNumber) {
+        // Prevent duplicate entries
+        let alreadyExists = peripherals[peripheral.identifier.uuidString] != nil
+        if alreadyExists { return }
+
+        // Add to existing peripehrals
         let peripheralData: [String: Any] = [
             "identifier": peripheral.identifier.uuidString,
             "name": peripheral.name ?? "Unknown",
             "rssi": rssi,
+            "state": peripheral.state.stateString,
             "advertisementData": advertisementData
         ]
-        
+        peripherals[peripheral.identifier.uuidString] = peripheralData
+
         // Sending the discovered peripheral data to JS
         sendEvent(withName: "PeripheralDiscovered", body: peripheralData)
     }
@@ -63,4 +71,16 @@ class RnBle: RCTEventEmitter, CBCentralManagerDelegate {
     override static func requiresMainQueueSetup() -> Bool {
         return false
     }
+}
+
+extension CBPeripheralState {
+  var stateString: String {
+    switch self {
+    case .disconnected: return "Disconnected"
+    case .connecting: return "Connecting"
+    case .connected: return "Connected"
+    case .disconnecting: return "Disconnecting"
+    default: return "Unknown"
+    }
+  }
 }

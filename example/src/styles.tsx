@@ -4,7 +4,10 @@ const {height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    flex: 1
+  },
+  padding20: {
+    paddingHorizontal: 20
   },
   statusMessage: {
     paddingVertical: 8,
@@ -18,6 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 20
   },
   button: {
     paddingVertical: 15,
@@ -44,7 +48,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   deviceItem: {
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
@@ -64,7 +69,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#999',
   },
-  grow1: {flexGrow: 1},
+  grow1: {
+    flexGrow: 1,
+  },
   emptyContainer: {
     justifyContent: 'center',
     alignItems: 'center',
