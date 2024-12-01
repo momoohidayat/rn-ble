@@ -2,7 +2,8 @@
 
 Searching for Bluetooth Low Energy (BLE) peripherals **(only for iOS for now)**
 
-![screenrecord-rnble](https://github.com/user-attachments/assets/b750d2a7-1e6a-4c6f-9262-86e68240f073)
+![ScreenRecording_12-01-2024 12-43-43_1](https://github.com/user-attachments/assets/74e68c90-f663-4517-9eb8-e6a5dcd595e8)
+
 
 ## Installation
 
