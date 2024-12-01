@@ -65,6 +65,7 @@ const App = () => {
       <Text style={styles.deviceName}>{item.name || 'Unknown'}</Text>
       <Text style={styles.deviceId}>{item.identifier}</Text>
       <Text style={styles.deviceRssi}>RSSI: {item.rssi}</Text>
+      <Text style={styles.deviceRssi}>State: {item.state}</Text>
       {item.advertisementData && (
         <Text style={styles.deviceAdvertisement}>
           Advertisement Data: {JSON.stringify(item.advertisementData)}
@@ -113,8 +114,8 @@ const App = () => {
             ListEmptyComponent={renderEmptyList()}
           />
         </View>
-        </SafeAreaView>
-      </SafeAreaProvider>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
