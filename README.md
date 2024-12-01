@@ -1,33 +1,22 @@
 # rn-ble
 
-Searching for Bluetooth Low Energy (BLE) peripherals
+Searching for Bluetooth Low Energy (BLE) peripherals **(only for iOS for now)**
+
+![screenrecord-rnble](https://github.com/user-attachments/assets/b750d2a7-1e6a-4c6f-9262-86e68240f073)
 
 ## Installation
 
-```sh
-npm install rn-ble
-```
+go to example folder using `cd example`
 
-## Usage
+run `yarn install` to install all of example project dependency
 
+run `npm install ../` to install the library into example project
 
-```js
-import { multiply } from 'rn-ble';
+go to ios folder using `cd ios` and run `pod install`
 
-// ...
+build the `.xcworkspace` file usng xcode to your device
 
-const result = await multiply(3, 7);
-```
+## Note
 
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+- You may need to setup your code signings in the xcode to build into your device
+- doesn't work on simulator since iOS simulator don't have bluetooth capability
